@@ -22,20 +22,20 @@ namespace ASPNetCore_EF_Students.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-              return _context.Course != null ? 
-                          View(await _context.Course.ToListAsync()) :
+              return _context.Courses != null ? 
+                          View(await _context.Courses.ToListAsync()) :
                           Problem("Entity set 'ASPNetCore_EF_StudentsContext.Course'  is null.");
         }
 
         // GET: Courses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Course == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var course = await _context.Course
+            var course = await _context.Courses
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (course == null)
             {
@@ -70,12 +70,12 @@ namespace ASPNetCore_EF_Students.Controllers
         // GET: Courses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Course == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var course = await _context.Course.FindAsync(id);
+            var course = await _context.Courses.FindAsync(id);
             if (course == null)
             {
                 return NotFound();
@@ -121,12 +121,12 @@ namespace ASPNetCore_EF_Students.Controllers
         // GET: Courses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Course == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var course = await _context.Course
+            var course = await _context.Courses
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (course == null)
             {
@@ -141,14 +141,14 @@ namespace ASPNetCore_EF_Students.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Course == null)
+            if (_context.Courses == null)
             {
                 return Problem("Entity set 'ASPNetCore_EF_StudentsContext.Course'  is null.");
             }
-            var course = await _context.Course.FindAsync(id);
+            var course = await _context.Courses.FindAsync(id);
             if (course != null)
             {
-                _context.Course.Remove(course);
+                _context.Courses.Remove(course);
             }
             
             await _context.SaveChangesAsync();
@@ -157,7 +157,7 @@ namespace ASPNetCore_EF_Students.Controllers
 
         private bool CourseExists(int id)
         {
-          return (_context.Course?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Courses?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

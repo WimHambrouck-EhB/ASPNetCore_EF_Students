@@ -22,19 +22,19 @@ namespace ASPNetCore_EF_Students.Controllers
         // GET: Scores
         public async Task<IActionResult> Index()
         {
-            var studentenMetPunten = _context.Student.Include(s => s.Points!).ThenInclude(p => p.Course);
+            var studentenMetPunten = _context.Students.Include(s => s.Points!).ThenInclude(p => p.Course);
             return View(await studentenMetPunten.ToListAsync());
         }
 
         // GET: Scores/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Score == null)
+            if (id == null || _context.Scores == null)
             {
                 return NotFound();
             }
 
-            var score = await _context.Score
+            var score = await _context.Scores
                 .Include(s => s.Course)
                 .Include(s => s.Student)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -49,8 +49,8 @@ namespace ASPNetCore_EF_Students.Controllers
         // GET: Scores/Create
         public IActionResult Create()
         {
-            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "Name");
-            ViewData["StudentId"] = new SelectList(_context.Student, "Id", "Name");
+            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name");
+            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name");
             return View();
         }
 
@@ -67,26 +67,26 @@ namespace ASPNetCore_EF_Students.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "Name", score.CourseId);
-            ViewData["StudentId"] = new SelectList(_context.Student, "Id", "Name", score.StudentId);
+            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name", score.CourseId);
+            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", score.StudentId);
             return View(score);
         }
 
         // GET: Scores/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Score == null)
+            if (id == null || _context.Scores == null)
             {
                 return NotFound();
             }
 
-            var score = await _context.Score.FindAsync(id);
+            var score = await _context.Scores.FindAsync(id);
             if (score == null)
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "Name", score.CourseId);
-            ViewData["StudentId"] = new SelectList(_context.Student, "Id", "Name", score.StudentId);
+            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name", score.CourseId);
+            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", score.StudentId);
             return View(score);
         }
 
@@ -122,20 +122,20 @@ namespace ASPNetCore_EF_Students.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "Name", score.CourseId);
-            ViewData["StudentId"] = new SelectList(_context.Student, "Id", "Name", score.StudentId);
+            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name", score.CourseId);
+            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", score.StudentId);
             return View(score);
         }
 
         // GET: Scores/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Score == null)
+            if (id == null || _context.Scores == null)
             {
                 return NotFound();
             }
 
-            var score = await _context.Score
+            var score = await _context.Scores
                 .Include(s => s.Course)
                 .Include(s => s.Student)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -152,14 +152,14 @@ namespace ASPNetCore_EF_Students.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Score == null)
+            if (_context.Scores == null)
             {
                 return Problem("Entity set 'ASPNetCore_EF_StudentsContext.Score'  is null.");
             }
-            var score = await _context.Score.FindAsync(id);
+            var score = await _context.Scores.FindAsync(id);
             if (score != null)
             {
-                _context.Score.Remove(score);
+                _context.Scores.Remove(score);
             }
             
             await _context.SaveChangesAsync();
@@ -168,7 +168,7 @@ namespace ASPNetCore_EF_Students.Controllers
 
         private bool ScoreExists(int id)
         {
-          return (_context.Score?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Scores?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

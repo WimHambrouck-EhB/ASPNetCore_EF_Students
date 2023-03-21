@@ -14,10 +14,10 @@ namespace ASPNetCore_EF_Students.Data
         {
         }
 
-        public DbSet<Student> Student { get; set; } = default!;
+        public DbSet<Student> Students { get; set; } = default!;
 
-        public DbSet<Course>? Course { get; set; } = default!;
+        public DbSet<Course>? Courses { get; set; } = default!;
 
-        public DbSet<Score>? Score { get; set; } = default!;
+        public DbSet<Score>? Scores { get; set; } = default!;
     }
 }

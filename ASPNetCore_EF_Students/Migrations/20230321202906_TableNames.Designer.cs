@@ -3,6 +3,7 @@ using ASPNetCore_EF_Students.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPNetCore_EF_Students.Migrations
 {
     [DbContext(typeof(StudentsContext))]
-    partial class ASPNetCore_EF_StudentsContextModelSnapshot : ModelSnapshot
+    [Migration("20230321202906_TableNames")]
+    partial class TableNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
