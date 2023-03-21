@@ -43,6 +43,11 @@ namespace ASPNetCore_EF_Students.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StudentId,CourseId,Grade")] Score score)
         {
+            if (ScoreExists(score))
+            {
+                ModelState.AddModelError("Grade", "Student already has a grade for this course. Either delete or edit the original grade.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(score);
@@ -62,7 +67,7 @@ namespace ASPNetCore_EF_Students.Controllers
                 return NotFound();
             }
 
-            var score = await _context.Scores.FindAsync( StudentId, CourseId);
+            var score = await _context.Scores.FindAsync(StudentId, CourseId);
             if (score == null)
             {
                 return NotFound();
@@ -93,7 +98,7 @@ namespace ASPNetCore_EF_Students.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ScoreExists(score.StudentId, score.CourseId))
+                    if (!ScoreExists(score))
                     {
                         return NotFound();
                     }
@@ -143,14 +148,14 @@ namespace ASPNetCore_EF_Students.Controllers
             {
                 _context.Scores.Remove(score);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ScoreExists(int StudentId, int CourseId)
+        private bool ScoreExists(Score score)
         {
-          return (_context.Scores?.Any(e => e.StudentId == StudentId && e.CourseId == CourseId)).GetValueOrDefault();
+            return (_context.Scores?.Any(e => e.StudentId == score.StudentId && e.CourseId == score.CourseId)).GetValueOrDefault();
         }
     }
 }
