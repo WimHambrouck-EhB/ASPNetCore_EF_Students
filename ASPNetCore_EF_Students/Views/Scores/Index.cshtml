@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Student>
+
+@{
+    ViewData["Title"] = "Scores";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Points)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Points?.Any() ?? false)
+            {
+                <tr class="table-secondary">
+                    <td colspan="3">
+                        @Html.DisplayFor(model => item.Name)
+                    </td>
+                </tr>
+
+                @foreach (var punt in item.Points)
+                {
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            @punt.Course.Name – @punt.Points / 20 (@Html.DisplayFor(puntItem => punt.PointsAsPercentage))
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@punt.Id">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@punt.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>

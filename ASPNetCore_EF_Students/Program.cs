@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ASPNetCore_EF_Students.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<StudentsContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ASPNetCore_EF_StudentsContext") ?? throw new InvalidOperationException("Connection string 'ASPNetCore_EF_StudentsContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
