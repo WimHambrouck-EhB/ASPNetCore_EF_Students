@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPNetCore_EF_Students.Migrations
 {
     [DbContext(typeof(StudentsContext))]
-    [Migration("20230321204408_Seeding")]
+    [Migration("20230321205902_Seeding")]
     partial class Seeding
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,11 +74,8 @@ namespace ASPNetCore_EF_Students.Migrations
 
             modelBuilder.Entity("ASPNetCore_EF_Students.Models.Score", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
@@ -86,31 +83,24 @@ namespace ASPNetCore_EF_Students.Migrations
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("StudentId", "CourseId");
 
                     b.HasIndex("CourseId");
-
-                    b.HasIndex("StudentId");
 
                     b.ToTable("Scores");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            StudentId = 1,
                             CourseId = 1,
-                            Grade = 20,
-                            StudentId = 1
+                            Grade = 20
                         },
                         new
                         {
-                            Id = 2,
+                            StudentId = 1,
                             CourseId = 2,
-                            Grade = 20,
-                            StudentId = 1
+                            Grade = 20
                         });
                 });
 

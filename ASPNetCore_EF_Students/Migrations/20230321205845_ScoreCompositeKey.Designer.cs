@@ -3,6 +3,7 @@ using ASPNetCore_EF_Students.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPNetCore_EF_Students.Migrations
 {
     [DbContext(typeof(StudentsContext))]
-    partial class ASPNetCore_EF_StudentsContextModelSnapshot : ModelSnapshot
+    [Migration("20230321205845_ScoreCompositeKey")]
+    partial class ScoreCompositeKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,38 +38,6 @@ namespace ASPNetCore_EF_Students.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = ".NET Essentials"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = ".NET Advanced"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Programming Essentials"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Programming Advanced"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Data Essentials"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Data Advanced"
-                        });
                 });
 
             modelBuilder.Entity("ASPNetCore_EF_Students.Models.Score", b =>
@@ -86,20 +56,6 @@ namespace ASPNetCore_EF_Students.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Scores");
-
-                    b.HasData(
-                        new
-                        {
-                            StudentId = 1,
-                            CourseId = 1,
-                            Grade = 20
-                        },
-                        new
-                        {
-                            StudentId = 1,
-                            CourseId = 2,
-                            Grade = 20
-                        });
                 });
 
             modelBuilder.Entity("ASPNetCore_EF_Students.Models.Student", b =>
@@ -117,48 +73,6 @@ namespace ASPNetCore_EF_Students.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Wim"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Paul"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Marvin"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Michael"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Amber"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Anna"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Belle"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Carrie"
-                        });
                 });
 
             modelBuilder.Entity("ASPNetCore_EF_Students.Models.Score", b =>

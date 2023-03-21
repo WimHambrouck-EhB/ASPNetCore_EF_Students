@@ -38,13 +38,13 @@ namespace ASPNetCore_EF_Students.Migrations
 
             migrationBuilder.InsertData(
                 table: "Scores",
-                columns: new[] { "Id", "CourseId", "Grade", "StudentId" },
-                values: new object[] { 1, 1, 20, 1 });
+                columns: new[] { "CourseId", "StudentId", "Grade" },
+                values: new object[] { 1, 1, 20 });
 
             migrationBuilder.InsertData(
                 table: "Scores",
-                columns: new[] { "Id", "CourseId", "Grade", "StudentId" },
-                values: new object[] { 2, 2, 20, 1 });
+                columns: new[] { "CourseId", "StudentId", "Grade" },
+                values: new object[] { 2, 1, 20 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -71,13 +71,13 @@ namespace ASPNetCore_EF_Students.Migrations
 
             migrationBuilder.DeleteData(
                 table: "Scores",
-                keyColumn: "Id",
-                keyValue: 1);
+                keyColumns: new[] { "CourseId", "StudentId" },
+                keyValues: new object[] { 1, 1 });
 
             migrationBuilder.DeleteData(
                 table: "Scores",
-                keyColumn: "Id",
-                keyValue: 2);
+                keyColumns: new[] { "CourseId", "StudentId" },
+                keyValues: new object[] { 2, 1 });
 
             migrationBuilder.DeleteData(
                 table: "Students",

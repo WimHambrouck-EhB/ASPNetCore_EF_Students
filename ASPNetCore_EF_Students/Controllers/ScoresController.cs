@@ -22,30 +22,10 @@ namespace ASPNetCore_EF_Students.Controllers
         // GET: Scores
         public async Task<IActionResult> Index()
         {
-            var studentenMetPunten = _context.Students.Include(s => s.Scores!)
-                                                      .ThenInclude(p => p.Course)
-                                                      .OrderBy(s => s.Name);
-            return View(await studentenMetPunten.ToListAsync());
-        }
-
-        // GET: Scores/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Scores == null)
-            {
-                return NotFound();
-            }
-
-            var score = await _context.Scores
-                .Include(s => s.Course)
-                .Include(s => s.Student)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (score == null)
-            {
-                return NotFound();
-            }
-
-            return View(score);
+            var studentMetScores = _context.Students.Include(s => s.Scores)
+                                                   .ThenInclude(s => s.Course)
+                                                   .OrderBy(s => s.Name);
+            return View(await studentMetScores.ToListAsync());
         }
 
         // GET: Scores/Create
@@ -61,7 +41,7 @@ namespace ASPNetCore_EF_Students.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StudentId,CourseId,Points")] Score score)
+        public async Task<IActionResult> Create([Bind("StudentId,CourseId,Grade")] Score score)
         {
             if (ModelState.IsValid)
             {
@@ -75,14 +55,14 @@ namespace ASPNetCore_EF_Students.Controllers
         }
 
         // GET: Scores/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? StudentId, int? CourseId)
         {
-            if (id == null || _context.Scores == null)
+            if (StudentId == null || CourseId == null || _context.Scores == null)
             {
                 return NotFound();
             }
 
-            var score = await _context.Scores.FindAsync(id);
+            var score = await _context.Scores.FindAsync( StudentId, CourseId);
             if (score == null)
             {
                 return NotFound();
@@ -97,9 +77,9 @@ namespace ASPNetCore_EF_Students.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StudentId,CourseId,Points")] Score score)
+        public async Task<IActionResult> Edit(int StudentId, int CourseId, [Bind("StudentId,CourseId,Grade")] Score score)
         {
-            if (id != score.Id)
+            if (StudentId != score.StudentId || CourseId != score.CourseId)
             {
                 return NotFound();
             }
@@ -113,7 +93,7 @@ namespace ASPNetCore_EF_Students.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ScoreExists(score.Id))
+                    if (!ScoreExists(score.StudentId, score.CourseId))
                     {
                         return NotFound();
                     }
@@ -130,9 +110,9 @@ namespace ASPNetCore_EF_Students.Controllers
         }
 
         // GET: Scores/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? StudentId, int? CourseId)
         {
-            if (id == null || _context.Scores == null)
+            if (StudentId == null || CourseId == null || _context.Scores == null)
             {
                 return NotFound();
             }
@@ -140,7 +120,7 @@ namespace ASPNetCore_EF_Students.Controllers
             var score = await _context.Scores
                 .Include(s => s.Course)
                 .Include(s => s.Student)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.StudentId == StudentId && m.CourseId == CourseId);
             if (score == null)
             {
                 return NotFound();
@@ -152,13 +132,13 @@ namespace ASPNetCore_EF_Students.Controllers
         // POST: Scores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int StudentId, int CourseId)
         {
             if (_context.Scores == null)
             {
-                return Problem("Entity set 'ASPNetCore_EF_StudentsContext.Score'  is null.");
+                return Problem("Entity set 'StudentsContext.Scores'  is null.");
             }
-            var score = await _context.Scores.FindAsync(id);
+            var score = await _context.Scores.FindAsync(StudentId, CourseId);
             if (score != null)
             {
                 _context.Scores.Remove(score);
@@ -168,9 +148,9 @@ namespace ASPNetCore_EF_Students.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ScoreExists(int id)
+        private bool ScoreExists(int StudentId, int CourseId)
         {
-          return (_context.Scores?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Scores?.Any(e => e.StudentId == StudentId && e.CourseId == CourseId)).GetValueOrDefault();
         }
     }
 }

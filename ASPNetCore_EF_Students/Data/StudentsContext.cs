@@ -16,6 +16,9 @@ namespace ASPNetCore_EF_Students.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Score>()
+                .HasKey(s => new { s.StudentId, s.CourseId });
+
             int id = 1;
 
             modelBuilder.Entity<Course>()
@@ -43,8 +46,8 @@ namespace ASPNetCore_EF_Students.Data
 
             modelBuilder.Entity<Score>()
                 .HasData(
-                    new Score { Id = 1, StudentId = 1, CourseId = 1, Grade = 20 },
-                    new Score { Id = 2, StudentId = 1, CourseId = 2, Grade = 20 }
+                    new Score { StudentId = 1, CourseId = 1, Grade = 20 },
+                    new Score { StudentId = 1, CourseId = 2, Grade = 20 }
                 );
         }
 

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Student>
 
 @{
-    ViewData["Title"] = "Scores";
+    ViewData["Title"] = "Punten";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -38,11 +38,11 @@
                         <td>
                         </td>
                         <td>
-                            @punt.Course.Name – @punt.Grade / 20 (@Html.DisplayFor(puntItem => punt.GradeAsPercentage))
+                            @punt.Course?.Name – @punt.Grade / 20 (@Html.DisplayFor(puntItem => punt.GradeAsPercentage))
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@punt.Id">Edit</a> |
-                            <a asp-action="Delete" asp-route-id="@punt.Id">Delete</a>
+                            @Html.ActionLink("Edit", "Edit", new { punt.StudentId, punt.CourseId }) |
+                            @Html.ActionLink("Delete", "Delete", new { punt.StudentId, punt.CourseId })
                         </td>
                     </tr>
                 }
@@ -50,3 +50,5 @@
         }
     </tbody>
 </table>
+
+

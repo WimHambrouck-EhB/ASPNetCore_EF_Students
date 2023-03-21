@@ -5,8 +5,6 @@ namespace ASPNetCore_EF_Students.Models
 {
     public class Score
     {
-        public int Id { get; set; }
-
         [Display(Name = "Student")]
         public int StudentId { get; set; }
         
