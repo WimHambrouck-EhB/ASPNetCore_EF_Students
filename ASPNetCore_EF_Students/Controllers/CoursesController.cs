@@ -23,7 +23,7 @@ namespace ASPNetCore_EF_Students.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Courses != null ? 
-                          View(await _context.Courses.ToListAsync()) :
+                          View(await _context.Courses.OrderBy(c => c.Name).ToListAsync()) :
                           Problem("Entity set 'ASPNetCore_EF_StudentsContext.Course'  is null.");
         }
 

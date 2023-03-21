@@ -22,7 +22,9 @@ namespace ASPNetCore_EF_Students.Controllers
         // GET: Scores
         public async Task<IActionResult> Index()
         {
-            var studentenMetPunten = _context.Students.Include(s => s.Scores!).ThenInclude(p => p.Course);
+            var studentenMetPunten = _context.Students.Include(s => s.Scores!)
+                                                      .ThenInclude(p => p.Course)
+                                                      .OrderBy(s => s.Name);
             return View(await studentenMetPunten.ToListAsync());
         }
 
@@ -49,8 +51,8 @@ namespace ASPNetCore_EF_Students.Controllers
         // GET: Scores/Create
         public IActionResult Create()
         {
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name");
-            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name");
+            ViewData["CourseId"] = new SelectList(_context.Courses?.OrderBy(c => c.Name), "Id", "Name");
+            ViewData["StudentId"] = new SelectList(_context.Students?.OrderBy(s => s.Name), "Id", "Name");
             return View();
         }
 
@@ -67,8 +69,8 @@ namespace ASPNetCore_EF_Students.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name", score.CourseId);
-            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", score.StudentId);
+            ViewData["CourseId"] = new SelectList(_context.Courses?.OrderBy(c => c.Name), "Id", "Name", score.CourseId);
+            ViewData["StudentId"] = new SelectList(_context.Students?.OrderBy(s => s.Name), "Id", "Name", score.StudentId);
             return View(score);
         }
 
@@ -85,8 +87,8 @@ namespace ASPNetCore_EF_Students.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name", score.CourseId);
-            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", score.StudentId);
+            ViewData["CourseId"] = new SelectList(_context.Courses?.OrderBy(c => c.Name), "Id", "Name", score.CourseId);
+            ViewData["StudentId"] = new SelectList(_context.Students?.OrderBy(s => s.Name), "Id", "Name", score.StudentId);
             return View(score);
         }
 
@@ -122,8 +124,8 @@ namespace ASPNetCore_EF_Students.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name", score.CourseId);
-            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", score.StudentId);
+            ViewData["CourseId"] = new SelectList(_context.Courses?.OrderBy(c => c.Name), "Id", "Name", score.CourseId);
+            ViewData["StudentId"] = new SelectList(_context.Students?.OrderBy(s => s.Name), "Id", "Name", score.StudentId);
             return View(score);
         }
 
