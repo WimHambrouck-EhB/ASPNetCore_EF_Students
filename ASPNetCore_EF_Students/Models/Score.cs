@@ -16,11 +16,11 @@ namespace ASPNetCore_EF_Students.Models
         public Course? Course { get; set; }
 
         [Range(0, 20)]
-        public int Points { get; set; }
+        public int Grade { get; set; }
 
         [NotMapped]
         [DisplayFormat(DataFormatString = "{0}%")]
-        public int PointsAsPercentage => Points * 5;
+        public int GradeAsPercentage => Grade * 5;
 
     }
 }

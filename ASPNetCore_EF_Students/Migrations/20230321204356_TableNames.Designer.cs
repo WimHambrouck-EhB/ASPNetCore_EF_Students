@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPNetCore_EF_Students.Migrations
 {
     [DbContext(typeof(StudentsContext))]
-    [Migration("20230321202906_TableNames")]
+    [Migration("20230321204356_TableNames")]
     partial class TableNames
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace ASPNetCore_EF_Students.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Points")
+                    b.Property<int>("Grade")
                         .HasColumnType("int");
 
                     b.Property<int>("StudentId")
@@ -92,7 +92,7 @@ namespace ASPNetCore_EF_Students.Migrations
                         .IsRequired();
 
                     b.HasOne("ASPNetCore_EF_Students.Models.Student", "Student")
-                        .WithMany("Points")
+                        .WithMany("Scores")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -104,7 +104,7 @@ namespace ASPNetCore_EF_Students.Migrations
 
             modelBuilder.Entity("ASPNetCore_EF_Students.Models.Student", b =>
                 {
-                    b.Navigation("Points");
+                    b.Navigation("Scores");
                 });
 #pragma warning restore 612, 618
         }

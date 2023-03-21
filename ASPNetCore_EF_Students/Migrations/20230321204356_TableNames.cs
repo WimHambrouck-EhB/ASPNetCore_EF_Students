@@ -40,6 +40,11 @@ namespace ASPNetCore_EF_Students.Migrations
                 name: "Course",
                 newName: "Courses");
 
+            migrationBuilder.RenameColumn(
+                name: "Points",
+                table: "Scores",
+                newName: "Grade");
+
             migrationBuilder.RenameIndex(
                 name: "IX_Score_StudentId",
                 table: "Scores",
@@ -115,6 +120,11 @@ namespace ASPNetCore_EF_Students.Migrations
             migrationBuilder.RenameTable(
                 name: "Courses",
                 newName: "Course");
+
+            migrationBuilder.RenameColumn(
+                name: "Grade",
+                table: "Score",
+                newName: "Points");
 
             migrationBuilder.RenameIndex(
                 name: "IX_Scores_StudentId",

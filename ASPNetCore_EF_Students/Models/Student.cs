@@ -8,6 +8,6 @@ namespace ASPNetCore_EF_Students.Models
 
         [Required]
         public string Name { get; set; } = string.Empty;
-        public ICollection<Score>? Points { get; set; }
+        public ICollection<Score>? Scores { get; set; }
     }
 }

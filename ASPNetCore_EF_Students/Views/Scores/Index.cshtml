@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Points)
+                @Html.DisplayNameFor(model => model.Scores)
             </th>
             <th></th>
         </tr>
@@ -24,7 +24,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.Points?.Any() ?? false)
+            if (item.Scores?.Any() ?? false)
             {
                 <tr class="table-secondary">
                     <td colspan="3">
@@ -32,13 +32,13 @@
                     </td>
                 </tr>
 
-                @foreach (var punt in item.Points)
+                @foreach (var punt in item.Scores)
                 {
                     <tr>
                         <td>
                         </td>
                         <td>
-                            @punt.Course.Name – @punt.Points / 20 (@Html.DisplayFor(puntItem => punt.PointsAsPercentage))
+                            @punt.Course.Name – @punt.Grade / 20 (@Html.DisplayFor(puntItem => punt.GradeAsPercentage))
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@punt.Id">Edit</a> |

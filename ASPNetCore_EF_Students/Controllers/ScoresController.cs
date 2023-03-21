@@ -22,7 +22,7 @@ namespace ASPNetCore_EF_Students.Controllers
         // GET: Scores
         public async Task<IActionResult> Index()
         {
-            var studentenMetPunten = _context.Students.Include(s => s.Points!).ThenInclude(p => p.Course);
+            var studentenMetPunten = _context.Students.Include(s => s.Scores!).ThenInclude(p => p.Course);
             return View(await studentenMetPunten.ToListAsync());
         }
 
